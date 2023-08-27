@@ -16,10 +16,12 @@ class MainVC: UIViewController {
     @IBOutlet weak var playerTeamLabel: UILabel!
     @IBOutlet weak var playerImages: UIImageView!
     
+    
     // MARK: Properties
     
     var currentIndex = 0
     var playerIds = [237, 140, 228, 322, 115, 15, 57, 192, 53]
+    
     
     // MARK: Lifecycle
     
@@ -27,6 +29,7 @@ class MainVC: UIViewController {
         super.viewDidLoad()
         fetchPlayerData()
     }
+    
     
     // MARK: Networking
     
@@ -51,6 +54,7 @@ class MainVC: UIViewController {
         playerImages.image = UIImage(named: "\(currentIndex + 1)")
     }
     
+    
     // MARK: UI Update
     
     func updateUI(player: Player) {
@@ -58,6 +62,7 @@ class MainVC: UIViewController {
         playerPositionLabel.text = "Position: \(player.position)"
         playerTeamLabel.text = "Team: \(player.team.fullName)"
     }
+    
     
     // MARK: IBActions
     
@@ -83,6 +88,7 @@ class MainVC: UIViewController {
         performSegue(withIdentifier: "ToStaticsVC", sender: self)
     }
     
+    
     // MARK: Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -90,6 +96,7 @@ class MainVC: UIViewController {
             staticsVC.playerId = playerIds[currentIndex]
         }
     }
+    
     
     // MARK: Helper
     

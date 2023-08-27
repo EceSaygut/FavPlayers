@@ -8,15 +8,23 @@
 import UIKit
 
 class StatisticsVC: UIViewController {
-
+    
+    // MARK: IBOutlets
+    
     @IBOutlet weak var gamesPlayedLabel: UILabel!
     @IBOutlet weak var minLabel: UILabel!
     @IBOutlet weak var ptsLabel: UILabel!
     @IBOutlet weak var rebLabel: UILabel!
     @IBOutlet weak var astLabel: UILabel!
     
-    var playerId: Int? // Önceki sayfadan gelen oyuncu kimliği
-    var selectedSeason: Int = 2022 // Varsayılan sezon
+    
+    // MARK: Properties
+    
+    var playerId: Int?
+    var selectedSeason: Int = 2022
+    
+    
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +33,9 @@ class StatisticsVC: UIViewController {
             fetchPlayerStatistics(playerId: playerId, season: selectedSeason)
         }
     }
+    
+    
+    // MARK: Actions
     
     @IBAction func seasonsSC(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -39,9 +50,11 @@ class StatisticsVC: UIViewController {
         }
     }
     
+    
+    // MARK: Networking
+    
     func fetchPlayerStatistics(playerId: Int, season: Int) {
         let urlString = "https://www.balldontlie.io/api/v1/season_averages?season=\(season)&player_ids[]=\(playerId)"
-        
         let url = URL(string: urlString)!
         
         URLSession.shared.dataTask(with: url) { data, _, error in
@@ -67,6 +80,8 @@ class StatisticsVC: UIViewController {
             }
         }.resume()
     }
+    
+    // MARK: UI Update
     
     func updateUI(with statistics: PlayerStatistics) {
         gamesPlayedLabel.text = "Games Played: \(statistics.gamesPlayed)"
